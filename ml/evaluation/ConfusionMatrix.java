@@ -41,9 +41,22 @@ public class ConfusionMatrix implements Evaluator {
 
 	// uses accuracy as a default
 	public double calculate() {
-		return ((double) TP + TN) / ((double) TP + TN + FP + FN);
+		//return ((double) TP + TN) / ((double) TP + TN + FP + FN);
+		return gmean();
+	}
+	
+	public double gmean() {
+		return Math.sqrt(sensitivity()*specificity());
 	}
 
+	public double sensitivity(){
+		return (double) TP / ((double) TP + FN);
+	}
+	
+	public double specificity(){
+		return (double) TN / ((double) TN + FP);
+	}
+	
 	public void reset() {
 		TP = 0;
 		TN = 0;
